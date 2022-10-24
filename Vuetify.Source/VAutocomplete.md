@@ -1,34 +1,64 @@
-`_slots$item`
+# VAutocomplete
 
+## 调用
 
-## useRenderss
+- makeSelectProps
+- makeFilterProps
+- useFilter
+- makeTransitionProps
+- forwardRefs
+- useItems
+- useLocale
+- useProxiedModel
 
-	<v-autocomplete><v-text-field>
-		<...slots>
-		<_Fragment v-slot:default>
+**components**
 
-			<v-menu>
-				<v-list v-slot:defalut>
-					<v-list-item v-slot:no-data>
+- VCheckboxBtn
+- VChip
+- VDefaultsProvider
+- VList
+- VListItem
+- VMenu
+- VTextField
 
-					_slots$item.call(slots
+**util**
 
+- genericComponent
+- useRender
+- wrapInArray
 
-					<v-list-item v-for="items in item">
-						<template v-slot:prepend>
-							<v-checkbox-btn>
-						<template v-slot:title>	
+## 组件结构
 
+> |- VAutocomplete > VtextField > input
+> |
+> | |- VMenu > VList 											遮罩, 弹出可选项
+> | | |- VListItem slot:no-data 					无数据时显示
+> | | |- VListItem 												遍历显示可选项
+> | | | |- slot:prepend -> VCheckboxBtn
+> | | | |- slot:title
+> | 
+> | |- div 																遍历显示选中项
+> | | |- VDefaultsProvider 								hasChips 则显示默认样式 
+> | | |- template 												否则通过插槽显示
+> | | | |- slot:selection -> slot:chip
+> | | | |- span 													分隔符
 
+## 方法与函数
 
+	highlightResult(text, matches, length)
 
+	select(item)
 
-			// 选中项
-			<div v-for="items for item" class="v-autocomple__selection">
-				// hasChips true
-				<v-defaults-provider>
-				// hasChip false
-				<template v-slot:selection><template v-slot:chip>
-				// or
-				<span v-for="items in item">{ item.title + "," }<span>
-	</v-text-field></v-autocomple>
+**监听器**
+
+	watch(isFocused, val => {})
+
+	watch(search, val => {})
+
+## 事件处理函数
+
+- onClear(e)
+- onClickControl()
+- onKeydown(e)
+- onInput(e)
+- onAfterLeave()
